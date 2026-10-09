@@ -80,4 +80,16 @@ export class EnrollmentsService {
             },
         });
     }
+
+    async findActiveByStudent(studentId: string): Promise<Enrollment[]> {
+        return this.enrollmentsRepository.find({
+            where: {
+                student: { id: studentId },
+                isEnrolled: true,
+            },
+            relations: {
+                courseEdition: { course: true },
+            },
+        });
+    }
 }

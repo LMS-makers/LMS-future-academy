@@ -22,4 +22,16 @@ export class StudentsService {
         }
         return student;
     }
+
+    // Looks up the Student record by the User id embedded in the JWT (`sub`),
+    // not by the Student's own id. Used for "/me/*" endpoints.
+    async findByUserId(userId: string): Promise<Student> {
+        const student = await this.studentsRepository.findOne({
+            where: { user: { id: userId } },
+        });
+        if (!student) {
+            throw new NotFoundException(`No student profile found for user "${userId}".`);
+        }
+        return student;
+    }
 }

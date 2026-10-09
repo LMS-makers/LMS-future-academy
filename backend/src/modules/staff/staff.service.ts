@@ -19,4 +19,14 @@ export class StaffService {
         }
         return staff;
     }
+
+    async findByUserId(userId: string): Promise<Staff> {
+        const staff = await this.staffRepository.findOne({
+            where: { user: { id: userId } },
+        });
+        if (!staff) {
+            throw new NotFoundException(`No staff profile found for user "${userId}".`);
+        }
+        return staff;
+    }
 }

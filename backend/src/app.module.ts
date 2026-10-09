@@ -16,6 +16,7 @@ import { AuthModule } from './modules/auth/auth.module.js';
 import { CourseEditionsModule } from './modules/course-editions/course-editions.module.js';
 import { CourseAssignmentsModule } from './modules/course-assignments/course-assignments.module.js';
 import { EnrollmentsModule } from './modules/enrollments/enrollments.module.js';
+import { MeModule } from './modules/me/me.module.js';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { EnrollmentsModule } from './modules/enrollments/enrollments.module.js';
     }),
     AuthModule,
     UsersModule,
+    MeModule,
     StudentsModule,
     StaffModule,
     CoursesModule,
