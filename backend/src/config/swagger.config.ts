@@ -8,7 +8,7 @@ export function setupSwagger(app: INestApplication, path: string) {
         .setVersion('1.0')
         .addBearerAuth(
             { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
-            'access-token',
+            'bearer',
         )
         .build();
 

@@ -24,9 +24,9 @@ export enum CourseRole {
 }
 
 export enum Semester {
-  FIRST = 'FIRST',   
-  SECOND = 'SECOND',
-  SUMMER = 'SUMMER' 
+    FIRST = 'FIRST',
+    SECOND = 'SECOND',
+    SUMMER = 'SUMMER'
 }
 
 export enum CreditHours {
@@ -34,4 +34,10 @@ export enum CreditHours {
     TWO = 2,
     THREE = 3,
     FOUR = 4,
+}
+
+export enum AccountStatus {
+    PENDING_ACTIVATION = 'PENDING_ACTIVATION',
+    INCOMPLETE_PROFILE = 'INCOMPLETE_PROFILE',
+    ACTIVE = 'ACTIVE',
 }
