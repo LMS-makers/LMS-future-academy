@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseUUIDPipe, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RolesGuard } from '../../common/guards/roles.guard.js';
 import { Roles } from '../../common/decorators/roles.decorator.js';
@@ -38,7 +38,7 @@ export class CourseEditionsController {
     @ApiParam({ name: 'id', description: 'Course edition id (UUID)' })
     @ApiResponse({ status: 200, description: 'The requested course edition.', type: CourseEdition })
     @ApiResponse({ status: 404, description: 'Course edition not found.' })
-    findOne(@Param('id') id: string): Promise<CourseEdition> {
+    findOne(@Param('id', new ParseUUIDPipe()) id: string): Promise<CourseEdition> {
         return this.courseEditionsService.findOne(id);
     }
 
@@ -48,7 +48,7 @@ export class CourseEditionsController {
     @ApiParam({ name: 'id', description: 'Course edition id (UUID)' })
     @ApiResponse({ status: 200, description: 'Edition archived.', type: CourseEdition })
     @ApiResponse({ status: 404, description: 'Course edition not found.' })
-    archive(@Param('id') id: string): Promise<CourseEdition> {
+    archive(@Param('id', new ParseUUIDPipe()) id: string): Promise<CourseEdition> {
         return this.courseEditionsService.archive(id);
     }
 
@@ -58,7 +58,7 @@ export class CourseEditionsController {
     @ApiParam({ name: 'id', description: 'Course edition id (UUID)' })
     @ApiResponse({ status: 200, description: 'Edition unarchived.', type: CourseEdition })
     @ApiResponse({ status: 404, description: 'Course edition not found.' })
-    unarchive(@Param('id') id: string): Promise<CourseEdition> {
+    unarchive(@Param('id', new ParseUUIDPipe()) id: string): Promise<CourseEdition> {
         return this.courseEditionsService.unarchive(id);
     }
 }

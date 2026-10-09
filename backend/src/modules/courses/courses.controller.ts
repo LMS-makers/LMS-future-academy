@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseUUIDPipe, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard.js';
 import { RolesGuard } from '../../common/guards/roles.guard.js';
@@ -38,7 +38,7 @@ export class CoursesController {
     @ApiParam({ name: 'id', description: 'Course id (UUID)' })
     @ApiResponse({ status: 200, description: 'The requested course.', type: Course })
     @ApiResponse({ status: 404, description: 'Course not found.' })
-    findOne(@Param('id') id: string): Promise<Course> {
+    findOne(@Param('id', new ParseUUIDPipe()) id: string): Promise<Course> {
         return this.coursesService.findOne(id);
     }
 
@@ -49,7 +49,7 @@ export class CoursesController {
     @ApiResponse({ status: 200, description: 'Course updated successfully.', type: Course })
     @ApiResponse({ status: 404, description: 'Course not found.' })
     @ApiResponse({ status: 409, description: 'A course with this code already exists.' })
-    update(@Param('id') id: string, @Body() dto: UpdateCourseDto): Promise<Course> {
+    update(@Param('id', new ParseUUIDPipe()) id: string, @Body() dto: UpdateCourseDto): Promise<Course> {
         return this.coursesService.update(id, dto);
     }
 
@@ -59,7 +59,7 @@ export class CoursesController {
     @ApiParam({ name: 'id', description: 'Course id (UUID)' })
     @ApiResponse({ status: 200, description: 'Course archived.', type: Course })
     @ApiResponse({ status: 404, description: 'Course not found.' })
-    archive(@Param('id') id: string): Promise<Course> {
+    archive(@Param('id', new ParseUUIDPipe()) id: string): Promise<Course> {
         return this.coursesService.archive(id);
     }
 
@@ -69,7 +69,7 @@ export class CoursesController {
     @ApiParam({ name: 'id', description: 'Course id (UUID)' })
     @ApiResponse({ status: 200, description: 'Course unarchived.', type: Course })
     @ApiResponse({ status: 404, description: 'Course not found.' })
-    unarchive(@Param('id') id: string): Promise<Course> {
+    unarchive(@Param('id', new ParseUUIDPipe()) id: string): Promise<Course> {
         return this.coursesService.unarchive(id);
     }
 }
