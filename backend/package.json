@@ -21,7 +21,8 @@
     "test:debug": "vitest --inspect-brk --no-file-parallelism",
     "test:e2e": "vitest run --config ./vitest.config.e2e.ts",
     "seed": "npm run build && node dist/scripts/seed.js",
-    "seed:courses": "npm run build && node dist/scripts/seed-courses-from-excel.js"
+    "seed:courses": "npm run build && node dist/scripts/seed-courses-from-excel.js",
+    "fix:courses:departments": "npm run build && node dist/scripts/fix-course-departments.js"
   },
   "dependencies": {
     "@nestjs/common": "^12.0.1",
