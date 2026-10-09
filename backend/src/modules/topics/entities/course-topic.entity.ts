@@ -1,6 +1,6 @@
 import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { BaseEntity } from '../../../common/entities/base.entity.js';
-import { CourseEdition } from '../../courses/entities/course-edition.entity.js';
+import { CourseEdition } from '../../course-editions/entities/course-edition.entity.js';
 
 @Entity('course_topics')
 export class CourseTopic extends BaseEntity {
