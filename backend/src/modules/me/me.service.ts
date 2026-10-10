@@ -1,17 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { UserRole } from '../../common/enums.js';
+import { AuthenticatedUser } from '../../common/interfaces/authenticated-user.interface.js';
 import { StudentsService } from '../students/students.service.js';
 import { StaffService } from '../staff/staff.service.js';
 import { EnrollmentsService } from '../enrollments/enrollments.service.js';
 import { MyCourseDto } from './dto/my-course.dto.js';
 import { CourseAssignmentsService } from '../course-assignments/course-assignments.service.js';
-
-// Shape of what @CurrentUser() returns — set by JwtStrategy.validate(),
-// which maps JwtPayload.sub to `userId` (not `sub`).
-interface CurrentUserPayload {
-    userId: string;
-    role: UserRole;
-}
 
 @Injectable()
 export class MeService {
@@ -22,7 +16,7 @@ export class MeService {
         private readonly courseAssignmentsService: CourseAssignmentsService,
     ) { }
 
-    async getMyCourses(user: CurrentUserPayload): Promise<MyCourseDto[]> {
+    async getMyCourses(user: AuthenticatedUser): Promise<MyCourseDto[]> {
         if (user.role === UserRole.STUDENT) {
             const student = await this.studentsService.findByUserId(user.userId);
             const enrollments = await this.enrollmentsService.findActiveByStudent(student.id);

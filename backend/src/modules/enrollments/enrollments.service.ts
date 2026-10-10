@@ -92,4 +92,12 @@ export class EnrollmentsService {
             },
         });
     }
+
+    // Used by read-access guards: is this student actively enrolled in this edition?
+    async isStudentEnrolled(studentId: string, editionId: string): Promise<boolean> {
+        const count = await this.enrollmentsRepository.count({
+            where: { student: { id: studentId }, courseEdition: { id: editionId }, isEnrolled: true },
+        });
+        return count > 0;
+    }
 }

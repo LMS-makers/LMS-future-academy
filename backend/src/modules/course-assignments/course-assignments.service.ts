@@ -88,6 +88,14 @@ export class CourseAssignmentsService {
         });
     }
 
+    // Used by write-access guards: is this staff member assigned (any role) to this edition?
+    async isStaffAssignedToEdition(editionId: string, staffId: string): Promise<boolean> {
+        const count = await this.assignmentsRepository.count({
+            where: { courseEdition: { id: editionId }, staff: { id: staffId } },
+        });
+        return count > 0;
+    }
+
     async remove(editionId: string, assignmentId: string): Promise<void> {
         const assignment = await this.assignmentsRepository.findOne({
             where: { id: assignmentId, courseEdition: { id: editionId } },

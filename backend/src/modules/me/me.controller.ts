@@ -5,6 +5,7 @@ import { RolesGuard } from '../../common/guards/roles.guard.js';
 import { Roles } from '../../common/decorators/roles.decorator.js';
 import { CurrentUser } from '../../common/decorators/current-user.decorator.js';
 import { UserRole } from '../../common/enums.js';
+import type { AuthenticatedUser } from '../../common/interfaces/authenticated-user.interface.js';
 import { MeService } from './me.service.js';
 import { MyCourseDto } from './dto/my-course.dto.js';
 
@@ -22,7 +23,7 @@ export class MeController {
             'List the current user\'s courses — active enrollments for a student, or assigned editions for a doctor/assistant',
     })
     @ApiResponse({ status: 200, description: "The current user's courses.", type: [MyCourseDto] })
-    getMyCourses(@CurrentUser() user: { userId: string; role: UserRole }): Promise<MyCourseDto[]> {
+    getMyCourses(@CurrentUser() user: AuthenticatedUser): Promise<MyCourseDto[]> {
         return this.meService.getMyCourses(user);
     }
 }
